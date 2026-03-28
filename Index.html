@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nazeer Fitness Gym</title>
+
+<style>
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #0f0f0f;
+    color: white;
+}
+
+/* Loader */
+#loader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Navbar */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: rgba(0,0,0,0.7);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transition: 0.3s;
+    z-index: 1000;
+}
+
+nav.scrolled {
+    background: black;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+}
+
+nav h1 { color: #EBEBEB; }
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li { margin: 0 15px; }
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: #ff3c3c;
+    border-bottom: 2px solid #ff3c3c;
+}
+
+/* Hero */
+.hero {
+    height: 100vh;
+    background: url("https://images.unsplash.com/photo-1605296867304-46d5465a13f1") no-repeat center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #73f715;
+    text-align: center;
+}
+
+.hero h1 { font-size: 50px; }
+
+/* Button */
+.btn {
+    padding: 12px 25px;
+    background: linear-gradient(45deg, #ff3c3c, #ff0000);
+    border: none;
+    color: white;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 25px;
+}
+
+.btn:hover {
+    background: white;
+    color: #ff3c3c;
+}
+
+/* Sections */
+section {
+    padding: 100px 20px;
+    text-align: center;
+    scroll-margin-top: 80px;
+}
+
+/* Cards */
+.cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: #1c1c1c;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    width: 260px;
+    transition: 0.4s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Features */
+.features {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.feature-box {
+    margin: 15px;
+    padding: 20px;
+    background: #222;
+    border-radius: 10px;
+    width: 260px;
+}
+
+/* Pricing */
+.price {
+    font-size: 22px;
+    color: #ff3c3c;
+}
+
+/* Review */
+.testimonial-container {
+    max-width: 600px;
+    margin: auto;
+    position: relative;
+}
+
+.testimonial {
+    display: none;
+    background: #1c1c1c;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.testimonial.active {
+    display: block;
+}
+
+/* Contact */
+.contact-box {
+    background: #1c1c1c;
+    padding: 25px;
+    border-radius: 15px;
+    width: 320px;
+    margin: auto;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 90%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.contact-form textarea {
+    height: 100px;
+}
+
+/* Form & Map Container Styling */
+#formBox,
+#mapBox {
+    max-width: 500px;
+    margin: 30px auto;
+    background: #1c1c1c;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+    animation: fadeIn 0.4s ease;
+}
+
+/* Form Inputs */
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background: #2a2a2a;
+    color: white;
+}
+
+/* Button spacing */
+.contact-box .btn {
+    margin: 10px 5px;
+}
+
+/* Map iframe */
+#mapBox iframe {
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media(max-width:768px){
+    .hero h1 { font-size: 30px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Loader -->
+<div id="loader"><h1>Loading...</h1></div>
+
+<!-- Navbar -->
+<nav>
+    <h1>PROFESSIONAL GYM</h1>
+    <ul>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#features">Why Us</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+    <h1>Transform Your Body</h1>
+    <p>Founder: Nazeer</p>
+    <button class="btn">Join Now</button>
+</section>
+
+<!-- Services -->
+<section id="services">
+    <h1>Our Services</h1>
+    <div class="cards">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61">
+            <h3>Weight Training</h3>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e">
+            <h3>Cardio Training</h3>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1558611848-73f7eb4001a1">
+            <h3>Personal Trainer</h3>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b">
+            <h3>Yoga Training</h3>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712">
+            <h3>CrossFit</h3>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48">
+            <h3>Bodybuilding</h3>
+        </div>
+
+    </div>
+</section>
+
+<!-- Pricing -->
+<section id="pricing">
+    <h1>Membership Plans</h1>
+
+    <h2>Strength Training</h2>
+    <div class="cards">
+        <div class="card"><h3>1 Month</h3><p class="price">₹2000</p></div>
+        <div class="card"><h3>3 Months</h3><p class="price">₹5000</p></div>
+        <div class="card"><h3>6 Months</h3><p class="price">₹9000</p></div>
+        <div class="card"><h3>12 Months</h3><p class="price">₹15000</p></div>
+    </div>
+
+    <h2>Cardio Training</h2>
+    <div class="cards">
+        <div class="card"><h3>1 Month</h3><p class="price">₹2500</p></div>
+        <div class="card"><h3>3 Months</h3><p class="price">₹6500</p></div>
+        <div class="card"><h3>6 Months</h3><p class="price">₹11000</p></div>
+        <div class="card"><h3>12 Months</h3><p class="price">₹18000</p></div>
+    </div>
+</section>
+
+<!-- Why Us -->
+<section id="features">
+    <h1>Why Choose Us?</h1>
+    <div class="features">
+        <div class="feature-box">🏋️ Modern equipment and advanced training</div>
+        <div class="feature-box">👨‍🏫 Certified trainers</div>
+        <div class="feature-box">📅 Flexible plans</div>
+        <div class="feature-box">🔥 Personal workouts</div>
+        <div class="feature-box">💪 Motivation support</div>
+        <div class="feature-box">🏆 Proven results</div>
+    </div>
+</section>
+
+<!-- Reviews -->
+<section id="reviews">
+    <h1>Client Reviews</h1>
+
+    <div class="testimonial-container">
+        <div class="testimonial active">
+            <p>"Best gym in the city! Trainers are very supportive."</p>
+            <h3>- Rahul ⭐⭐⭐⭐⭐</h3>
+        </div>
+
+        <div class="testimonial">
+            <p>"I transformed my body in 3 months. Amazing!"</p>
+            <h3>- Arjun ⭐⭐⭐⭐⭐</h3>
+        </div>
+
+        <div class="testimonial">
+            <p>"Clean gym and good equipment. Worth it."</p>
+            <h3>- Sneha ⭐⭐⭐⭐</h3>
+        </div>
+
+        <div class="testimonial">
+            <p>"Personal trainers are excellent. Highly recommended gym."</p>
+            <h3>- Kiran⭐⭐⭐⭐⭐</h3>
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+    <h1>Contact Us</h1>
+
+    <div class="contact-box">
+        <p>👤 <strong>Founder:</strong> Nazeer</p>
+        <p>📞 <strong>Phone:</strong> 9876543210</p>
+        <p>📧 <strong>Email:</strong> nazeergym@gmail.com</p>
+        <p>📍 <strong>Location:</strong> India</p>
+
+        <button class="btn" onclick="showForm()">Fill Form</button>
+        <button class="btn" onclick="openMap()">Get Directions</button>
+    </div>
+
+    <!-- Hidden Form -->
+    <div id="formBox" style="display:none; margin-top:20px;">
+        <form class="contact-form">
+            <input type="text" placeholder="Your Name" required><br><br>
+            <input type="email" placeholder="Your Email" required><br><br>
+            <textarea placeholder="Your Message" required></textarea><br><br>
+            <button class="btn">Send Message</button>
+        </form>
+    </div>
+
+    <!-- Hidden Map -->
+    <div id="mapBox" style="display:none; margin-top:20px;">
+        <iframe 
+            src="https://maps.app.goo.gl/VuF6EcxQZcVTB9aE7"
+            width="100%" 
+            height="300" 
+            style="border:0; border-radius:10px;">
+        </iframe>
+    </div>
+</section>
+
+<!-- JS -->
+<script>
+// Loader
+window.addEventListener("load", () => {
+    document.getElementById("loader").style.display = "none";
+});
+
+// Navbar scroll effect
+window.addEventListener("scroll", function() {
+    let nav = document.querySelector("nav");
+    nav.classList.toggle("scrolled", window.scrollY > 50);
+});
+
+// Active menu highlight
+let sections = document.querySelectorAll("section");
+let navLinks = document.querySelectorAll("nav ul li a");
+
+window.addEventListener("scroll", () => {
+    let current = "";
+
+    sections.forEach(section => {
+        let sectionTop = section.offsetTop - 120;
+        if (scrollY >= sectionTop) {
+            current = section.getAttribute("id");
+        }
+    });
+
+    navLinks.forEach(a => {
+        a.classList.remove("active");
+        if (a.getAttribute("href") === "#" + current) {
+            a.classList.add("active");
+        }
+    });
+});
+</script>
+<script>
+let testimonials = document.querySelectorAll(".testimonial");
+let index = 0;
+
+function showTestimonials() {
+    testimonials.forEach(t => t.classList.remove("active"));
+    testimonials[index].classList.add("active");
+
+    index = (index + 1) % testimonials.length;
+}
+
+setInterval(showTestimonials, 3000);
+
+
+function showForm() {
+    document.getElementById("formBox").style.display = "block";
+    document.getElementById("mapBox").style.display = "none";
+}
+
+function showMap() {
+    document.getElementById("mapBox").style.display = "block";
+    document.getElementById("formBox").style.display = "none";
+}
+
+function openMap() {
+    window.open("https://maps.app.goo.gl/VuF6EcxQZcVTB9aE7", "_blank");
+}
+
+</script>
+
+</body>
+</html>
